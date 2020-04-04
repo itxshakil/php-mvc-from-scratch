@@ -1,4 +1,7 @@
 <?php
 
+require './Core/Router.php';
 
-echo 'Requested URL : "'.$_SERVER['QUERY_STRING'].'"';
+$router = new Router;
+
+echo get_class($router);
