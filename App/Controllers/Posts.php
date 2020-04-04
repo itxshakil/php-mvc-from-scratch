@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
-class Posts
+use Core\Controller;
+
+class Posts extends Controller
 {
     public function index()
     {
@@ -19,5 +21,7 @@ class Posts
     public function edit()
     {
         echo 'Hello from edit method';
+        echo '<p>Query string parameters: <pre>' .
+        htmlspecialchars(print_r($this->route_params, true)) . '</pre></p>';
     }
 }
