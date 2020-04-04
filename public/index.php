@@ -1,4 +1,4 @@
 <?php
 
 
-echo 'Hello from public folder';
+echo 'Requested URL : "'.$_SERVER['QUERY_STRING'].'"';
