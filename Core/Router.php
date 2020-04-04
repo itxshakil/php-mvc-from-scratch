@@ -3,29 +3,39 @@
 class Router
 {
     /**
-     * Associated Array of route
-     *
+     * Associative array of routes (the routing table)
      * @var array
      */
     protected $routes = [];
 
     /**
-     * Parameter from the matched route
-     *
+     * Parameters from the matched route
      * @var array
      */
     protected $params = [];
 
     /**
-     * Add a route to routing table
+     * Add a route to the routing table
      *
      * @param string $route
      * @param array $params (controller, action etc)
      *
      * @return void
      */
-    public function add($route, $params)
+    public function add($route, $params = [])
     {
+        // Convert the route to regular expression :escape forward slashes
+        $route = preg_replace('/\//', '\\/', $route);
+
+        // Convert variables e.g. {controller}
+        $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
+
+        // Convert variables with custom regular expressions e.g. {id:\d+}
+        $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
+
+        // Add start and end delimiters, and case insensitive flag
+        $route = '/^' . $route . '$/i';
+
         $this->routes[$route] = $params;
     }
 
@@ -34,46 +44,44 @@ class Router
      *
      * @return array
      */
-    public function getParams()
+    public function getRoutes()
     {
-        return $this->params;
+        return $this->routes;
     }
 
     /**
      * Match the route to the routes in the routing table, setting the $params
      * property if  a route is found return true otherwise false
      *
-     * @params string $url
+     * @param string $url
      *
      * @return bool
      */
     public function match($url)
     {
-        // foreach ($this->routes as $route => $params) {
-        //     if ($url == $route) {
-        //         $this->params = $params;
-
-        //         return true;
-        //     }
-        // }
-
-        // return false;
-
-        $reg_exp = "/^(?P<controller>[a-z-]+)\/(?P<action>[a-z-]+)$/";
-
-        if (preg_match($reg_exp, $url, $matches)) {
-            $params = [];
-            foreach ($matches as $key => $value) {
-                if (is_string($key)) {
-                    $params[$key] = $value;
+        foreach ($this->routes as $route => $params) {
+            if (preg_match($route, $url, $matches)) {
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        $params[$key] = $match;
+                    }
                 }
+
+                $this->params = $params;
+                return true;
             }
-
-            $this->params = $params;
-
-            return true;
         }
 
         return false;
+    }
+
+    /**
+     * Get the currently matched parameters
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
     }
 }
