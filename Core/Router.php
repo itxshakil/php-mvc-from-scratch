@@ -10,6 +10,13 @@ class Router
     protected $routes = [];
 
     /**
+     * Parameter from the matched route
+     *
+     * @var array
+     */
+    protected $params = [];
+
+    /**
      * Add a route to routing table
      *
      * @param string $route
@@ -27,8 +34,29 @@ class Router
      *
      * @return array
      */
-    public function getRoutes()
+    public function getParams()
     {
-        return $this->routes;
+        return $this->params;
+    }
+
+    /**
+     * Match the route to the routes in the routing table, setting the $params
+     * property if  a route is found return true otherwise false
+     *
+     * @params string $url
+     *
+     * @return bool
+     */
+    public function match($url)
+    {
+        foreach ($this->routes as $route => $params) {
+            if ($url == $route) {
+                $this->params = $params;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
