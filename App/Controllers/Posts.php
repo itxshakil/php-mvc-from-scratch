@@ -1,4 +1,8 @@
-<?php class Posts
+<?php
+
+namespace App\Controllers;
+
+class Posts
 {
     public function index()
     {
