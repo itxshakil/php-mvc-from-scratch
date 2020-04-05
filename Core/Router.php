@@ -122,10 +122,10 @@ class Router
                     throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method");
                 }
             } else {
-                echo "Controller class $controller not found";
+                throw new \Exception("Controller class $controller not found", 1);
             }
         } else {
-            echo 'No route matched.';
+            throw new \Exception('No route matched.', 1);
         }
     }
 
@@ -194,16 +194,16 @@ class Router
     }
 
     /**
-     * Get the namespace for controller class. The namespace defined in the 
+     * Get the namespace for controller class. The namespace defined in the
      * route parameters is added if  present
-     * 
+     *
      * @return string request url
      */
     public function getNamespace()
     {
         $namespace = 'App\Controllers\\';
         if (array_key_exists('namespace', $this->params)) {
-            $namespace .= $this->params['namespace'].'\\';
+            $namespace .= $this->params['namespace'] . '\\';
         }
 
         return $namespace;
