@@ -6,7 +6,12 @@
     <title>Testing</title>
 </head>
 <body>
-    <h1>Welcome</h1>
-    <p>Hello from view</p>
+    <h1>Welcome <?php echo htmlspecialchars($name); ?></h1>
+    <?php
+        foreach ($colors as $color) {
+            echo htmlspecialchars($color);
+            echo '<br>';
+        }
+    ?>
 </body>
 </html>
