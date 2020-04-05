@@ -17,5 +17,5 @@ namespace App;
       * Show or hide error message on screen
       *@var boolean
       */
-     const SHOW_ERROR = true;
+     const SHOW_ERROR = false;
  }

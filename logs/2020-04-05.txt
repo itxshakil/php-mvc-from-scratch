@@ -1,0 +1,10 @@
+[05-Apr-2020 09:13:52 Europe/Berlin] Uncaught Exception: 'Exception'with message 'Controller class App\Controllers\Poddsts not found'
+with stack trace :#0 C:\xampp\htdocs\mvc\public\index.php(29): Core\Router->dispatch('poddsts/index')
+#1 C:\xampp\htdocs\mvc\index.php(21): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+ Throw in 'C:\xampp\htdocs\mvc\Core\Router.php' on line125
+[05-Apr-2020 09:14:02 Europe/Berlin] Uncaught Exception: 'Exception'with message 'No route matched.'
+with stack trace :#0 C:\xampp\htdocs\mvc\public\index.php(29): Core\Router->dispatch('products')
+#1 C:\xampp\htdocs\mvc\index.php(21): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+ Throw in 'C:\xampp\htdocs\mvc\Core\Router.php' on line128
